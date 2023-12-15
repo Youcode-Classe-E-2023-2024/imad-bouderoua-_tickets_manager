@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket Details</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-200">
+    <div class="container mx-auto p-8">
+        <!-- Ticket Details -->
+        <div class="bg-white p-6 rounded-md shadow-md containerddd">
+            
+           
+        </div>
+
+        <!-- Comments Section -->
+        <div class="mt-8">
+            <h2 class="text-xl font-semibold mb-4">Comments</h2>
+
+            <!-- Comment Form -->
+            <form class="mb-4">
+                <textarea class="w-full p-2 border border-gray-300 rounded-md" placeholder="Add a comment"></textarea>
+                <button type="submit"
+                    class="mt-2 bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600">Add Comment</button>
+            </form>
+
+            <!-- Dummy Comments (replace this with actual comments from your database) -->
+            <div class="bg-white p-4 rounded-md shadow-md">
+                <p class="text-gray-600">User1: Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </div>
+            <div class="bg-white p-4 rounded-md shadow-md mt-4">
+                <p class="text-gray-600">User2: Proin mattis, turpis vitae feugiat vestibulum, tellus nulla
+                    ultricies justo.</p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+<script>
+    
+   
+
+    console.log(localStorage.getItem('ticketid'));
+    var xhr = new XMLHttpRequest()
+    xhr.open('get','soloticket.php?id=' + localStorage.getItem('ticketid'),true);
+    xhr.onreadystatechange = ()=>{
+        if(xhr.status === 200){
+            console.log(xhr.responseText);
+            document.querySelector('.containerddd').innerHTML = xhr.responseText;
+            }
+    }
+    xhr.send();
+
+    if(localStorage.getItem('perm') === '1'){
+        document.querySelector('.changeperm').textContent = 'k8'
+        console.log(document.querySelector('.changeperm'))
+    }else{
+        console.log(document.querySelector('.changeperm'))
+        document.querySelector('.changeperm').textContent = 'l'
+        
+        console.log('no')
+    }
+
+</script>
