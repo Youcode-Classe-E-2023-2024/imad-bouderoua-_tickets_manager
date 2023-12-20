@@ -1,11 +1,20 @@
 <?php
 $id = $_GET['id'];
 echo $id;
-$conn = mysqli_connect('localhost', 'root', '', 'briefaftercolab');
+
+class tslika{
+
+    static function getcon() {
+        return mysqli_connect('localhost', 'root', '', 'briefaftercolab');
+    }
+
+}
+
+
+
+$result = mysqli_query(tslika::getcon(), "SELECT * FROM tickets WHERE molchi = {$id}");
+
 $output = "";
-
-$result = mysqli_query($conn, "SELECT * FROM tickets WHERE molchi = {$id}");
-
 while ($row = mysqli_fetch_assoc($result)) {
     $output .= '<div class="border border-gray-400 rounded-md p-4 mb-4 bg-white flex flex-col justify-between transition duration-300 ease-in-out transform hover:shadow-lg">
     <img onclick="deleteelement(this)" key="'.$row['ticket_id'] .'" width="20" height="20" src="https://img.icons8.com/color/20/close-window.png" alt="close-window"/>
@@ -18,5 +27,5 @@ while ($row = mysqli_fetch_assoc($result)) {
 }
 
 echo $output;
-mysqli_close($conn);
+
 ?>

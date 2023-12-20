@@ -50,17 +50,21 @@ function login() {
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
             if (xhr.status === 200) {
-
                 var response = JSON.parse(xhr.responseText);
                 console.log('Response from server:', response);
-                    localStorage.setItem('userid',xhr.responseText);
-                    console.log('Login successful!');
-                
+    
+                localStorage.setItem('userid', xhr.responseText);
+                console.log('Login successful!');
+    
+                // Check if this log is printed
+                console.log('Redirecting to index.php...');
+                window.location.href = "index.php";
             } else {
-                console.log("not present ");
+                console.log("Not present");
             }
         }
     };
+    
 
     // Send the FormData object
     xhr.send(formData);

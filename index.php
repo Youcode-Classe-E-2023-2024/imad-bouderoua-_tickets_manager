@@ -18,9 +18,10 @@
     <img class="my-4" width="40" height="40" src="https://img.icons8.com/plumpy/40/000000/two-tickets.png" alt="two-tickets" />
 
     <!-- Logout Icon (SVG) -->
-    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mt-4 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <a href="signup.html">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mt-4 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l3 3m0 0l-3 3m3-3H4m8-3V3m0 0l-3 3m3-3l3 3"></path>
-    </svg>
+    </svg></a>
 </div>
 
 
