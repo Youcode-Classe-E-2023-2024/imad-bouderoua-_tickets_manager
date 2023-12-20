@@ -13,10 +13,11 @@ if ($data === null) {
     $priority = $data['Priority'];
     $status = $data['Status'];
     $molchi = $data['molchi'];
+    $desc = $data['desc'];
     $assigned = json_decode($data['assigned'], true);
 
     $conn = mysqli_connect('localhost', 'root', '', 'briefaftercolab');
-    $query = "INSERT INTO tickets (title, tag, priority, status,molchi) VALUES ('$title', '$tag', '$priority', '$status','$molchi')";
+    $query = "INSERT INTO tickets (title, tag, priority, status,molchi,description) VALUES ('$title', '$tag', '$priority', '$status','$molchi','$desc')";
     mysqli_query($conn, $query);
 
     $ticketId = mysqli_insert_id($conn);

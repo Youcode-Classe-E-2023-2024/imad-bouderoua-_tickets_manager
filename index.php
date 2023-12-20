@@ -13,9 +13,16 @@
 
 <body class="h-screen w-screen flex bg-gray-200 p-1">
     <!-- Sidebar -->
-    <div class="firstdiv h-full w-16 flex flex-col items-center justify">
-        <img width="40" height="40" src="https://img.icons8.com/plumpy/40/000000/two-tickets.png" alt="two-tickets" />
-    </div>
+<div class="firstdiv h-full w-16 flex flex-col items-center justify-between pb-10 bg-gray-800 text-white">
+    <!-- Sidebar Icon -->
+    <img class="my-4" width="40" height="40" src="https://img.icons8.com/plumpy/40/000000/two-tickets.png" alt="two-tickets" />
+
+    <!-- Logout Icon (SVG) -->
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mt-4 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l3 3m0 0l-3 3m3-3H4m8-3V3m0 0l-3 3m3-3l3 3"></path>
+    </svg>
+</div>
+
 
     <!-- Ticket Section -->
     <div class="h-full flex flex-col w-3/12 bg-gray-300 border-2 border-gray-300">
@@ -83,7 +90,7 @@
             <input type="text" id="ticketTitle" name="ticketTitle" class="input">
 
             <label for="ticketTag">Ticket Tag:</label>
-            <input type="text" id="ticketTag" name="ticketTag" class="input">
+            <input type="text" id="ticketTag" name="ticketTag" class="inputd input">
 
             <label for="ticketPriority">Ticket Priority:</label>
             <select id="ticketPriority" name="ticketPriority" class="input">
@@ -98,7 +105,8 @@
                 <option value="in-progress">In Progress</option>
                 <option value="closed">Closed</option>
             </select>
-
+            <label for="ticketdescription">Ticket Des:</label>
+            <input type="area" id="ticketdescription" name="ticketTag" class=" input">
             <button id="submitTicketBtn" class="custom-btn btn-1">Submit</button>
         </div>
         <div class="w-3/6 ml-20">
@@ -209,12 +217,32 @@
 
 </style>
 <script>
+ var d = document.querySelector('.inputd');
+var x = 0;
+d.addEventListener('keyup', (event) => {
+    
+    if (event.key === 'Enter') {
+       if (x === 0){
+        d.value = '#'+ d.value + ' - #'
+        x++;
+       }else{
+        d.value += ' - #'
+       }
+        
+       
+    }
+
+});
+
+
     function setid(element,perm){
-        if(perm=== 1){
-            localStorage.setItem('perm',1);
-        }else{
-            localStorage.setItem('perm',0);
-        }
+        if (perm === 1) {
+        localStorage.setItem('perm', 1);
+        localStorage.setItem('ticketid', element.getAttribute('key'));
+    } else {
+        localStorage.setItem('perm', 0);
+        localStorage.setItem('ticketid', element.getAttribute('key'));
+    }
         console.log(element.getAttribute('key'));
         localStorage.setItem('ticketid', element.getAttribute('key'));
         window.location.href = 'section.html';
@@ -223,7 +251,14 @@
     function deleteelement(element){
         console.log(element.getAttribute('key'));
         localStorage.setItem('ticketid', element.getAttribute('key'));
-
+        var delxhr = new XMLHttpRequest();
+        delxhr.open('post','delete.php?id=' + element.getAttribute('key'),true);
+        delxhr.onreadystatechange = ()=>{
+            if(delxhr.status === 200){
+                console.log('good delete');
+            }
+        }
+        delxhr.send()
     }
     var klchi = document.querySelector('.ticketsarticle');
     var elih = document.querySelector('.article3lih');
@@ -336,6 +371,7 @@
         var tag = document.getElementById('ticketTag').value;
         var priority = document.getElementById('ticketPriority').value;
         var status = document.getElementById('ticketStatus').value;
+        var desc = document.getElementById('ticketdescription').value;
 
         var xhrsend = new XMLHttpRequest();
         xhrsend.open('POST', 'save.php', true);
@@ -350,6 +386,7 @@
             'Tag': tag,
             'Priority': priority,
             'Status': status,
+            'desc':desc,
             'assigned': JSON.stringify(Array.from(array)),
         };
         xhrsend.send(JSON.stringify(data));
